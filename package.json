@@ -1,0 +1,8 @@
+{
+  "name": "node_js_introduction",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/danjarosz/node_js_introduction.git",
+  "author": "danjarosz <jarosz.daniel@protonmail.com>",
+  "license": "MIT"
+}
