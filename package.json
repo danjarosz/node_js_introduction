@@ -4,5 +4,8 @@
   "main": "index.js",
   "repository": "https://github.com/danjarosz/node_js_introduction.git",
   "author": "danjarosz <jarosz.daniel@protonmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "colors": "^1.4.0"
+  }
 }
