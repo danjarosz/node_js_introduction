@@ -7,7 +7,7 @@ const fs = require("fs");
 // - READDIR
 // - READFILE
 // - WRITEFILE
-// - APENDFILE
+// - APPENDFILE
 // ----------------------
 
 //-------------------------------------------
@@ -109,6 +109,30 @@ fs.readFile("./names.txt", { encoding: "utf-8" }, (err, data) => {
       throw new Error(err);
     }
 
-    console.log("Plik zablokowany.txt nadpisany");
+    console.log("Plik nadpisany");
+  });
+});
+
+//-------------------------------------------
+//APPENDFILE
+fs.appendFile("./users.txt", ", Mirek, Asia", (err) => {
+  if (err) {
+    throw new Error(err);
+  }
+
+  console.log("Dopisano dane do pliku");
+});
+
+fs.readFile("./names.txt", { encoding: "utf-8" }, (err, data) => {
+  if (err) {
+    throw new Error(err);
+  }
+
+  fs.appendFile("./users.txt", data, (err) => {
+    if (err) {
+      throw new Error(err);
+    }
+
+    console.log("Dopisano dane do pliku");
   });
 });
