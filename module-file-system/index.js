@@ -50,3 +50,15 @@ try {
 } catch (err) {
   console.log(err);
 }
+
+//RIDDIR
+const folder = fs.readdirSync("./");
+// console.log(folder);
+
+fs.readdir("./", (err, data) => {
+  if (err) {
+    console.log(err);
+  } else {
+    console.log(data);
+  }
+});
