@@ -1,5 +1,13 @@
 const fs = require("fs");
 
+// ----------------------
+// METHODS:
+// - ACCESS
+// - REMANE
+// - READDIR
+// ----------------------
+
+//-------------------------------------------
 //ACCESS
 fs.access("./names.txt", (err) => {
   const message = err
@@ -22,6 +30,7 @@ fs.access("./zablokowany.txt", fs.constants.W_OK, (err) => {
   console.log(message);
 });
 
+//-------------------------------------------
 //RENAME
 fs.rename("./names.txt", "./imiona.txt", (err) => {
   if (err) {
@@ -51,7 +60,8 @@ try {
   console.log(err);
 }
 
-//RIDDIR
+//-------------------------------------------
+//READDIR
 const folder = fs.readdirSync("./");
 // console.log(folder);
 
@@ -62,3 +72,16 @@ fs.readdir("./", (err, data) => {
     console.log(data);
   }
 });
+
+//-------------------------------------------
+//READFILE
+fs.readFile("./names.txt", { encoding: "utf-8" }, (err, data) => {
+  if (err) {
+    throw new Error(err);
+  }
+
+  console.log(data);
+});
+
+const names = fs.readFileSync("./names.txt", { encoding: "utf-8" });
+console.log(names);
