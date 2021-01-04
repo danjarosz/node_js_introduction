@@ -5,6 +5,9 @@ const fs = require("fs");
 // - ACCESS
 // - REMANE
 // - READDIR
+// - READFILE
+// - WRITEFILE
+// - APENDFILE
 // ----------------------
 
 //-------------------------------------------
@@ -85,3 +88,27 @@ fs.readFile("./names.txt", { encoding: "utf-8" }, (err, data) => {
 
 const names = fs.readFileSync("./names.txt", { encoding: "utf-8" });
 console.log(names);
+
+//-------------------------------------------
+//WRITEFILE
+fs.writeFile("./users.txt", "Ania, Zosia", (err) => {
+  if (err) {
+    throw new Error(err);
+  }
+
+  console.log("Plik nadpisany");
+});
+
+fs.readFile("./names.txt", { encoding: "utf-8" }, (err, data) => {
+  if (err) {
+    throw new Error(err);
+  }
+
+  fs.writeFile("./names-copy.txt", data, (err) => {
+    if (err) {
+      throw new Error(err);
+    }
+
+    console.log("Plik zablokowany.txt nadpisany");
+  });
+});
