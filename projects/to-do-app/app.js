@@ -1,5 +1,6 @@
 const parseArgs = require("minimist");
 const colors = require("colors");
+const fs = require("fs");
 
 const command = parseArgs(process.argv.slice(2, 3));
 delete command._;
@@ -12,7 +13,7 @@ const handleCommnad = ({ add, remove, list }) => {
       return console.log("Nazwa zadania musi mieć więcej niż 6 znaków".red);
     }
 
-    handleData();
+    handleData(1, add);
   } else if (remove) {
     if (typeof remove !== "string" || remove.length < 7) {
       return console.log(
@@ -21,18 +22,77 @@ const handleCommnad = ({ add, remove, list }) => {
       );
     }
 
-    handleData();
+    handleData(2, remove);
   } else if (list || list === "") {
-    handleData();
+    handleData(3, null);
   } else {
     console.log(
       'Nie rozumiem polecenia. Użyj --list, --add="nazwa zadania" lub --remove="nazwa zadania"'
+        .red
     );
   }
 };
 
-const handleData = () => {
-  console.log("Robimy coś z danymi");
+const handleData = (type, title) => {
+  // type 1 - add
+  // type 2 - remove
+  // type 3 - list
+
+  let data = null;
+
+  try {
+    data = fs.readFileSync("./data-db.json", { encoding: "utf-8" });
+  } catch (err) {
+    throw new Error(err);
+  }
+
+  const tasks = JSON.parse(data);
+
+  if (type === 1 || type === 2) {
+    const isExisted = tasks.find((task) => task.title === title) ? true : false;
+
+    if (type === 1 && isExisted) {
+      return console.log("Takie zadanie już istnieje".red);
+    }
+
+    if (type === 2 && !isExisted) {
+      return console.log("Nie można usunąć zadania które nie istnieje".red);
+    }
+  }
+
+  switch (type) {
+    case 1:
+      const id = Math.random();
+      tasks.push({
+        id,
+        title,
+      });
+      fs.writeFile("./data-db.json", JSON.stringify(tasks), (err) => {
+        if (err) {
+          throw new Error(err);
+        }
+        console.log(`Dodano do bazy zadanie: ${title}`.white.bgGreen);
+      });
+      break;
+    case 2:
+      const filteredTasks = tasks.filter((task) => task.title !== title);
+      fs.writeFile("./data-db.json", JSON.stringify(filteredTasks), (err) => {
+        if (err) {
+          throw new Error(err);
+        }
+        console.log(`Usunięto z bazy zadanie: ${title}`.white.bgRed);
+      });
+      break;
+    case 3:
+      tasks.forEach((task, index) => {
+        index % 2
+          ? console.log(`${task.title}`.green)
+          : console.log(`${task.title}`.yellow);
+      });
+      break;
+    default:
+      return console.log("Nieobsługiwane polecenie".red);
+  }
 };
 
 handleCommnad(command);
