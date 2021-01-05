@@ -62,7 +62,8 @@ const handleData = (type, title) => {
 
   switch (type) {
     case 1:
-      const id = Math.random();
+      const id =
+        Math.round(Math.random() * 10000) * Math.round(Math.random() * 300);
       tasks.push({
         id,
         title,
@@ -84,11 +85,14 @@ const handleData = (type, title) => {
       });
       break;
     case 3:
-      tasks.forEach((task, index) => {
-        index % 2
-          ? console.log(`${task.title}`.green)
-          : console.log(`${task.title}`.yellow);
-      });
+      console.log(`Masz ${tasks.length} zadań do zrobienia:`);
+      if (tasks.length) {
+        tasks.forEach((task, index) => {
+          index % 2
+            ? console.log(`${task.title}`.green)
+            : console.log(`${task.title}`.yellow);
+        });
+      }
       break;
     default:
       return console.log("Nieobsługiwane polecenie".red);
