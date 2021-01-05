@@ -1,0 +1,13 @@
+{"table":"A","currency":"frank szwajcarski","code":"CHF","rates":[{"no":"002/A/NBP/2021","effectiveDate":"2021-01-05","mid":4.2078}]}
+{"table":"A","currency":"euro","code":"EUR","rates":[{"no":"002/A/NBP/2021","effectiveDate":"2021-01-05","mid":4.5446}]}
+{"table":"A","currency":"funt szterling","code":"GBP","rates":[{"no":"002/A/NBP/2021","effectiveDate":"2021-01-05","mid":5.0261}]}
+{"table":"A","currency":"funt szterling","code":"GBP","rates":[{"no":"002/A/NBP/2021","effectiveDate":"2021-01-05","mid":5.0261}]}
+{"table":"A","currency":"funt szterling","code":"GBP","rates":[{"no":"002/A/NBP/2021","effectiveDate":"2021-01-05","mid":5.0261}]}
+{"table":"A","currency":"euro","code":"EUR","rates":[{"no":"002/A/NBP/2021","effectiveDate":"2021-01-05","mid":4.5446}]}
+{"table":"A","currency":"euro","code":"EUR","rates":[{"no":"002/A/NBP/2021","effectiveDate":"2021-01-05","mid":4.5446}]}
+{"table":"A","currency":"euro","code":"EUR","rates":[{"no":"002/A/NBP/2021","effectiveDate":"2021-01-05","mid":4.5446}]}
+{"table":"A","currency":"euro","code":"EUR","rates":[{"no":"002/A/NBP/2021","effectiveDate":"2021-01-05","mid":4.5446}]}
+{"table":"A","currency":"euro","code":"EUR","rates":[{"no":"002/A/NBP/2021","effectiveDate":"2021-01-05","mid":4.5446}]}
+{"table":"A","currency":"euro","code":"EUR","rates":[{"no":"002/A/NBP/2021","effectiveDate":"2021-01-05","mid":4.5446}]}
+{"table":"A","currency":"euro","code":"EUR","rates":[{"no":"002/A/NBP/2021","effectiveDate":"2021-01-05","mid":4.5446}]}
+{"table":"A","currency":"dolar amerykański","code":"USD","rates":[{"no":"002/A/NBP/2021","effectiveDate":"2021-01-05","mid":3.7031}]}
