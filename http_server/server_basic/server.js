@@ -1,7 +1,11 @@
 const http = require("http");
+const port = process.env.PORT || 4400;
 
 http
   .createServer((req, res) => {
+    console.log(req.url);
+    console.log(req.method);
+
     res.writeHead(200, {
       "Content-Type": "text/html; charset=utf-8",
     });
@@ -14,6 +18,6 @@ http
     res.write(content);
     res.end("<div>Something from end</div>");
   })
-  .listen(4400, "127.0.0.1", () => {
-    console.log("server is running on 4400");
+  .listen(port, "127.0.0.1", () => {
+    console.log(`server is running on ${port}`);
   });
