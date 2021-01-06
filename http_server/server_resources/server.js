@@ -40,6 +40,18 @@ http
           res.end(file);
         });
         break;
+      case "/code.js":
+        const pathNameCodeJS = path.join(__dirname, "code.js");
+        fs.readFile(pathNameCodeJS, (err, file) => {
+          if (err) {
+            res.end("<h1>Nie udało się pobrać pliku</h1>");
+          }
+          res.writeHead(200, {
+            "Content-Type": "application/javascript; charset=utf-8",
+          });
+          res.end(file);
+        });
+        break;
       default:
         res.end("<h1>Strona nie istnieje</h1>");
     }
