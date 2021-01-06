@@ -18,6 +18,7 @@ app.listen(port, "127.0.0.1", () => {
 // - ...
 
 app.get("/", (req, res) => {
+  //------------------------------
   //właściwoście requesta
   console.log("hostname: ", req.hostname); // nazwa hosta
   console.log("ip", req.ip); // prawdziwy adres IP
@@ -36,4 +37,12 @@ app.get("/", (req, res) => {
   // if (!req.secure) {
   //   console.log("Protokół niezabezpieczony");
   // }
+
+  //------------------------------
+  //właściwoście adresu URL, na froncie kodowane za pomocą:
+  //encodeURIComponent
+  //URLSearchParams
+  console.log("query: ", req.query); // dane z query stringa w formie obiektu (odkodowane)
+  const { name, surname } = req.query;
+  console.log(`Hello, ${name} ${surname}`);
 });
