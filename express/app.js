@@ -39,10 +39,16 @@ app.get("/", (req, res) => {
   // }
 
   //------------------------------
-  //właściwoście adresu URL, na froncie kodowane za pomocą:
-  //encodeURIComponent
-  //URLSearchParams
+  // właściwoście adresu URL, na froncie kodowane za pomocą:
+  // - encodeURIComponent
+  // - URLSearchParams
+  // odczytywane zapomocą req.query na backendzie
   console.log("query: ", req.query); // dane z query stringa w formie obiektu (odkodowane)
   const { name, surname } = req.query;
   console.log(`Hello, ${name} ${surname}`);
+
+  //------------------------------
+  // metoda req.get()
+  console.log("get(): ", req.get("Referer")); // Referef przydatny do określenia skąd użytkownik przyszedł na stronę np. z mediów społeczniościowych
+  // można też pobrać Cookies za pomocą get() (lecz są lepsze motody)
 });
