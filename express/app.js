@@ -69,7 +69,9 @@ app.get("/", (req, res) => {
   // - Array / Object - application/json i zakodowanie danych jako JSON
 });
 
-//wysyłanie tekstu za pomocą res.send():
+//--------------------------
+// Response
+// wysyłanie tekstu za pomocą res.send():
 app.get("/string", (req, res) => {
   res.send("String wysłany jako HTML");
 });
@@ -86,6 +88,27 @@ app.get("/array", (req, res) => {
   const str = "Zażółć gęślą jaźń";
   const arr = str.split(" ");
   res.send(arr);
+});
+
+// Wysyłanie JSON za pomocą res.json(dane_wejściowe). POzwala na:
+// - zawsze wysłanie JSON, nawek jak podamy zwykły tekst
+// - specjalne opcje dla formatowania JSON w Express
+// tak to niczym innym się nie różni od res.send(dane_wejściowe)
+app.get("/json/string", (req, res) => {
+  res.json("Zwykły tekst");
+});
+
+app.get("/json/object", (req, res) => {
+  res.json({
+    text: "hello world",
+    isGood: true,
+  });
+});
+
+app.get("/json/array", (req, res) => {
+  const str = "Zażółć gęślą jaźń";
+  const arr = str.split(" ");
+  res.json(arr);
 });
 
 //----------------------------------------------
