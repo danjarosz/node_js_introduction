@@ -52,3 +52,43 @@ app.get("/", (req, res) => {
   console.log("get(): ", req.get("Referer")); // Referef przydatny do określenia skąd użytkownik przyszedł na stronę np. z mediów społeczniościowych
   // można też pobrać Cookies za pomocą get() (lecz są lepsze motody)
 });
+
+//----------------------------------------------
+// Idea routingu - struktura REST:
+
+// app.get("/", (req, res) => {
+//   console.log("spis ludzi");
+// });
+
+// app.get("/:id", (req, res) => {
+//   console.log("informacje szczegółowe na temat człowieka o id przekazanym w paramatrze id");
+// });
+
+// app.post("/", (req, res) => {
+//   console.log("dodawanie do spisu ludzi nowej osoby");
+// });
+
+// app.patch("/:id", (req, res) => {
+//   console.log("aktualizacja osoby o id przekazanym w paramatrze id");
+// });
+
+// app.delete("/:id", (req, res) => {
+//   console.log("usunięcie osoby o id przekazanym w paramatrze id");
+// });
+
+// ścieżki stałe powinny być przed ścieżkami ze zmiennymi, aby obsłużyć je i nie nadpisać stałych routów
+app.get("/hello/new-user", (req, res) => {
+  console.log("dodawanie nowego użytkownika");
+});
+
+app.get("/hello/:name", (req, res) => {
+  console.log("powitanie osoby " + req.params.name);
+});
+
+// ściażka z opcjonalną zmienną:
+// article/:id/:title?
+// wtedy wpisanie: article/123 i article/123/tytul-artykulu złapie ten sam route
+
+app.get("/article/:id/:title?", (req, res) => {
+  console.log("params: ", req.params); // pobiera paramsy z adresu URL i zwraca obiekt JS
+});
