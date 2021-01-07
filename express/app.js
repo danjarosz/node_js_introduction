@@ -51,6 +51,41 @@ app.get("/", (req, res) => {
   // metoda req.get()
   console.log("get(): ", req.get("Referer")); // Referef przydatny do określenia skąd użytkownik przyszedł na stronę np. z mediów społeczniościowych
   // można też pobrać Cookies za pomocą get() (lecz są lepsze motody)
+
+  //Obiekt Response
+  // 1 - write + end
+  // res.write("Hello world");
+  // res.end();
+  // 2 - send = write + end, lecz ustawia nagłowek automatycznie, na podstawie tego co wysyłamy:
+  // - Content-Type i kodowanie utf-8
+  // - Content-Length
+  // - Nagłówki związane z podstawowym catchingiem
+  // - konwertuje dane jeśli to potrzebne
+  // - przesyła dane i kończy połączenie
+  res.send("Zażółć gęślą jaźń");
+  // Metodą res.send(dane_wejściowe) można przesłać:
+  // - string - text/html i przesłanie tekstu
+  // - Buffer - application/octet-stream i przesyłanie czystych danych
+  // - Array / Object - application/json i zakodowanie danych jako JSON
+});
+
+//wysyłanie tekstu za pomocą res.send():
+app.get("/string", (req, res) => {
+  res.send("String wysłany jako HTML");
+});
+
+//wysyłanie JSONA za pomocą res.send():
+app.get("/object", (req, res) => {
+  res.send({
+    title: "Obiekt dane jako JSON",
+    otherData: 1234,
+  });
+});
+
+app.get("/array", (req, res) => {
+  const str = "Zażółć gęślą jaźń";
+  const arr = str.split(" ");
+  res.send(arr);
 });
 
 //----------------------------------------------
@@ -79,10 +114,12 @@ app.get("/", (req, res) => {
 // ścieżki stałe powinny być przed ścieżkami ze zmiennymi, aby obsłużyć je i nie nadpisać stałych routów
 app.get("/hello/new-user", (req, res) => {
   console.log("dodawanie nowego użytkownika");
+  res.end();
 });
 
 app.get("/hello/:name", (req, res) => {
   console.log("powitanie osoby " + req.params.name);
+  res.end();
 });
 
 // ściażka z opcjonalną zmienną:
@@ -91,4 +128,5 @@ app.get("/hello/:name", (req, res) => {
 
 app.get("/article/:id/:title?", (req, res) => {
   console.log("params: ", req.params); // pobiera paramsy z adresu URL i zwraca obiekt JS
+  res.end();
 });
