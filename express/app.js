@@ -111,6 +111,32 @@ app.get("/json/array", (req, res) => {
   res.json(arr);
 });
 
+// Przekierowanie
+// - res.redirect(nowy_adres, kod_statusu(opcjonalnie))
+// - res.location(nowy_adres)
+
+app.get("/location", (req, res) => {
+  // res.location("https://google.com");
+  res.location("/");
+  res.sendStatus(302);
+});
+
+app.get("/redirect", (req, res) => {
+  // res.redirect("https://google.com");
+  res.redirect("/");
+});
+
+//redirect obsługuje ścieżki względne
+app.get("/go-up", (req, res) => {
+  res.redirect("..");
+});
+
+app.get("/go-back", (req, res) => {
+  res.redirect("back"); // back to special string, odczytuje referer i cofa o jeden route, jeśli nie ma wcześniejszej ścieżki to przekierowuje na /
+});
+
+// zobacz statusy 301, 302, 303, 307
+
 //----------------------------------------------
 // Idea routingu - struktura REST:
 
