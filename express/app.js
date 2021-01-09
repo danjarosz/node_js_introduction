@@ -217,3 +217,15 @@ app.get("/attach", (req, res) => {
 app.get("/download", (req, res) => {
   res.download(path.join(__dirname, "static", "profile.jpeg"), "logo.jepg");
 });
+
+//Ustawianie nagłówków:
+// - res.set() - pojedyńczy nagłówek
+// - res.set({...}) - wiele nagłówków
+// Ustawianie nagłówków powinno odbyć się przed wysłaniem odpowiedzi (bo inaczej jest zablokowane).
+// Można to sprawdzić za pomocą właśiwości
+// - res.headersSent // true lub false
+
+//Cookies - ustawianie za pomocą metody:
+// - res.cookie('nazwa', 'wartość'); - cookie na czas sesji
+// Konfigurowanie cookies:
+// - res.cookie('nazwa', 'wartość', { opcje }) - dostępne opcje to: domain, expires, maxAge, httpOnly i inne...
