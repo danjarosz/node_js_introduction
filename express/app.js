@@ -1,5 +1,5 @@
-const { response, request } = require("express");
 const express = require("express");
+const path = require("path");
 const port = process.env.PORT || 4000;
 
 const app = express();
@@ -178,4 +178,42 @@ app.get("/hello/:name", (req, res) => {
 app.get("/article/:id/:title?", (req, res) => {
   console.log("params: ", req.params); // pobiera paramsy z adresu URL i zwraca obiekt JS
   res.end();
+});
+
+//--------------------
+// Przesyłanie plików - res.sendFile(ścieżka_do_pliku)
+app.get("/send-file", (req, res) => {
+  res.sendFile("send-file.html", {
+    root: path.join(__dirname, "static"),
+  });
+});
+
+app.get("/profile", (req, res) => {
+  // wersja basic
+  // const pathname = path.join(__dirname, "static", "profile.jpeg");
+  // res.sendFile(pathname);
+
+  //wersja extended (lepiej używać tej wersji)
+  res.sendFile("profile.jpeg", {
+    root: path.join(__dirname, "static"), // główna ścieżka do pliku
+    lastModified: true, // ture jest by default, można zmienić na false, żeby nie wyświetlać
+    // headers: {} // dodatkowe nagłówki, jeśli trzeba
+    // dotfiles: ignore // opcje allow, deny i ignore - zazwolenie na pliki ukryte
+    // inne
+  });
+});
+
+// metoda res.attachment() - użycie jak res.sendFile()
+// plik wysyłany jako załącznik, tj. przeglądarka go nie wyświetli, lecz zapyta, czy go pobrać
+// trzeba zakończyć połączenie za pomocą res.end()
+app.get("/attach", (req, res) => {
+  res.attachment("profile.jpeg", {
+    root: path.join(__dirname, "static"),
+  });
+  res.end();
+});
+
+// druga opcja to res.download()
+app.get("/download", (req, res) => {
+  res.download(path.join(__dirname, "static", "profile.jpeg"), "logo.jepg");
 });
