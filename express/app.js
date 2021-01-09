@@ -229,3 +229,21 @@ app.get("/download", (req, res) => {
 // - res.cookie('nazwa', 'wartość'); - cookie na czas sesji
 // Konfigurowanie cookies:
 // - res.cookie('nazwa', 'wartość', { opcje }) - dostępne opcje to: domain, expires, maxAge, httpOnly i inne...
+
+// Przykład ustawiania ciastek
+app.get("/cookies/hi/:name", (req, res) => {
+  const { name } = req.params;
+  const dt = new Date();
+  dt.setDate(dt.getDate() + 7);
+
+  res.cookie("visitor_name", name, {
+    expires: dt,
+  });
+  res.send("Imię zapisano");
+});
+
+// Przykład czyszczenia ciastek
+app.get("/logout", (req, res) => {
+  res.clearCookie("visitor_name");
+  res.send("Wylogowano");
+});
