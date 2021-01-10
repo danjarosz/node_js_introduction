@@ -1,4 +1,5 @@
 const express = require("express");
+const path = require("path");
 const port = process.env.PORT || 4000;
 
 const app = express();
@@ -6,6 +7,8 @@ const app = express();
 app.listen(port, "127.0.0.1", () => {
   console.log(`Server is running on the ${port}`);
 });
+
+app.use(express.static(path.join(__dirname, "public")));
 
 let goodAnswers = 0;
 let callToAFriendUsed = false;
@@ -34,3 +37,18 @@ const questions = [
     correctAnswer: 0,
   },
 ];
+
+app.get("/question", (req, res) => {
+  if (goodAnswers === questions.length) {
+    res.json({
+      winner: true,
+    });
+  } else {
+    const nextQuestion = questions[goodAnswers];
+    const { question, answers } = nextQuestion;
+    res.json({
+      question,
+      answers,
+    });
+  }
+});
