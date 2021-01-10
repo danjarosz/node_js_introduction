@@ -247,3 +247,53 @@ app.get("/logout", (req, res) => {
   res.clearCookie("visitor_name");
   res.send("Wylogowano");
 });
+
+//---------------------------------------------------------
+// Midlewares, aby użyc middleware, trzeba użyć funkcji
+// - app.use(jakisMiddleware());
+// należy zadelarować wszystkie middleware przed ścieżkami
+// Przykłady middlewares:
+// - app.use(express.json()); - middleware do odczytywania json od klienta, domyślnie do 100kB, można zwiększyć.
+// użycie tego middleware powoduje dodania dodatkowego obiektu do obiektu req i jest to req.body z rozkodowanymi danymi
+
+app.use(express.json());
+
+app.post("/get-json/hello", (req, res) => {
+  const { name, surname } = req.body;
+
+  res.send(`Witaj ${name} ${surname}`);
+});
+
+//Przykład zapytania
+// fetch("/get-json/hello", {
+//   method: 'POST',
+//   body: JSON.stringify({
+//       name: "Anna",
+//       surname: "Kowalska"
+//   }),
+//   headers: {
+//       "Content-Type": "application/json",
+//   }
+// })
+
+// Serwowanie plików statycznych:
+// - app.use(express.static("ścieżka_do_folderu_plików_statycznych")); - middleware do automatycznego serwowania plików statycznych
+app.use(express.static(path.join(__dirname, "static")));
+// lecz wymaga używania pełnych ścieżek plików
+
+//odczyt ciasteczek:
+// potrzebna dodatkowa paczka "cookie-parser"
+const cookieParser = require("cookie-parser");
+app.use(cookieParser());
+// można ustawić obiekt opcjiw cookieParser(), patrz dokumentacja
+// Ten middleware dodaje nowy obiekt do req pod kluczem req.cookies lub req.signedCookies
+
+app.get("/get-cookies", (req, res) => {
+  const { visitor_name } = req.cookies;
+
+  if (visitor_name) {
+    res.send(`Witaj, ${visitor_name}`);
+  } else {
+    res.send(`Czy my się znamy?`);
+  }
+});
