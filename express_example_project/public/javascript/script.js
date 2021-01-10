@@ -1,8 +1,18 @@
 const questionEl = document.querySelector("#question");
 const buttons = document.querySelectorAll("button");
+const goodAnswersEl = document.querySelector("#good-answers");
+const gameboardEl = document.querySelector("#gameboard");
+const h2 = document.querySelector("h2");
 
 function fillQuestionElements(data) {
-  const { question, answers } = data;
+  const { question, answers, winner } = data;
+
+  if (data.winner === true) {
+    gameboardEl.style.display = "none";
+    h2.innerText = "Wygrałeś!";
+    return;
+  }
+
   questionEl.innerText = question;
 
   for (let i in answers) {
@@ -25,6 +35,12 @@ function showNextQuestion() {
     });
 }
 
+function handleAnswerFeedback(data) {
+  const { goodAnswers } = data;
+  goodAnswersEl.innerText = goodAnswers;
+  showNextQuestion();
+}
+
 function sendAnswer(answerIndex) {
   fetch(`/answer/${answerIndex}`, {
     method: "POST",
@@ -35,7 +51,7 @@ function sendAnswer(answerIndex) {
       }
     })
     .then((data) => {
-      console.log(data);
+      handleAnswerFeedback(data);
     });
 }
 
