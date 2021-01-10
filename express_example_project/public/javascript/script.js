@@ -1,4 +1,5 @@
 const questionEl = document.querySelector("#question");
+const buttons = document.querySelectorAll("button");
 
 function fillQuestionElements(data) {
   const { question, answers } = data;
@@ -23,5 +24,26 @@ function showNextQuestion() {
       fillQuestionElements(data);
     });
 }
+
+function sendAnswer(answerIndex) {
+  fetch(`/answer/${answerIndex}`, {
+    method: "POST",
+  })
+    .then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+    })
+    .then((data) => {
+      console.log(data);
+    });
+}
+
+buttons.forEach((button) => {
+  button.addEventListener("click", (e) => {
+    const answerIndex = e.target.dataset.answer;
+    sendAnswer(answerIndex);
+  });
+});
 
 showNextQuestion();
