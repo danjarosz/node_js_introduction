@@ -87,7 +87,9 @@ function gameRoute(app) {
         ? `Wydaje mi się, że odpowiedź to ${
             question.answers[question.correctAnswer]
           }`
-        : "Hmmm, no nie wiem.",
+        : `Hmmm, no nie wiem. Strzelam, że ${
+            question.answers[Math.round(Math.random() * 3.4)]
+          }`,
     });
   });
 }

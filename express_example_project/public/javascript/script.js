@@ -61,6 +61,11 @@ function sendAnswer(answerIndex) {
     });
 }
 
+handleFriendsAnswer = (data) => {
+  const tipEl = document.querySelector("#tip");
+  tipEl.innerText = data.text;
+};
+
 callToAFriend = () => {
   fetch("/help/friend", {
     method: "GET",
@@ -71,7 +76,7 @@ callToAFriend = () => {
       }
     })
     .then((data) => {
-      console.log(data);
+      handleFriendsAnswer(data);
     });
 };
 
