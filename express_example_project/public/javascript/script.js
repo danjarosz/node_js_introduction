@@ -1,5 +1,5 @@
 const questionEl = document.querySelector("#question");
-const buttons = document.querySelectorAll("button");
+const buttons = document.querySelectorAll(".answer-button");
 const goodAnswersEl = document.querySelector("#good-answers");
 const gameboardEl = document.querySelector("#gameboard");
 const h2 = document.querySelector("h2");
@@ -61,11 +61,29 @@ function sendAnswer(answerIndex) {
     });
 }
 
+callToAFriend = () => {
+  fetch("/help/friend", {
+    method: "GET",
+  })
+    .then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+    })
+    .then((data) => {
+      console.log(data);
+    });
+};
+
 buttons.forEach((button) => {
   button.addEventListener("click", (e) => {
     const answerIndex = e.target.dataset.answer;
     sendAnswer(answerIndex);
   });
 });
+
+document
+  .querySelector("#callToAFriend")
+  .addEventListener("click", callToAFriend);
 
 showNextQuestion();
