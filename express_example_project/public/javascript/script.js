@@ -13,6 +13,12 @@ function fillQuestionElements(data) {
     return;
   }
 
+  if (data.looser === true) {
+    gameboardEl.style.display = "none";
+    h2.innerText = "Nie poszło tym razem, spróbuj ponownie!";
+    return;
+  }
+
   questionEl.innerText = question;
 
   for (let i in answers) {
