@@ -80,6 +80,33 @@ callToAFriend = () => {
     });
 };
 
+handleHalfOnHalf = (data) => {
+  if (typeof data.text === "string") {
+    const tipEl = document.querySelector("#tip");
+    tipEl.innerText = data.text;
+  } else {
+    for (const button of buttons) {
+      if (data.answersToRemove.indexOf(button.innerText) > -1) {
+        button.innerText = "";
+      }
+    }
+  }
+};
+
+halfOnHalf = () => {
+  fetch("/help/half", {
+    method: "GET",
+  })
+    .then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+    })
+    .then((data) => {
+      handleHalfOnHalf(data);
+    });
+};
+
 buttons.forEach((button) => {
   button.addEventListener("click", (e) => {
     const answerIndex = e.target.dataset.answer;
@@ -90,5 +117,7 @@ buttons.forEach((button) => {
 document
   .querySelector("#callToAFriend")
   .addEventListener("click", callToAFriend);
+
+document.querySelector("#halfOnHalf").addEventListener("click", halfOnHalf);
 
 showNextQuestion();

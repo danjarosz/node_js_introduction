@@ -92,6 +92,28 @@ function gameRoute(app) {
           }`,
     });
   });
+
+  app.get("/help/half", (req, res) => {
+    if (halfOnHalfUsed) {
+      return res.json({
+        text: "To koło ratunkowe było już wykorzystane",
+      });
+    }
+
+    halfOnHalfUsed = true;
+
+    const question = questions[goodAnswers];
+
+    const answersCopy = question.answers.filter(
+      (answer, index) => index !== question.correctAnswer
+    );
+
+    answersCopy.splice(~~(Math.random() * answersCopy.length), 1);
+
+    res.json({
+      answersToRemove: answersCopy,
+    });
+  });
 }
 
 module.exports = gameRoute;
