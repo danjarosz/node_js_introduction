@@ -107,6 +107,31 @@ halfOnHalf = () => {
     });
 };
 
+handleQuestionToTheCrowd = (data) => {
+  if (typeof data.text === "string") {
+    const tipEl = document.querySelector("#tip");
+    tipEl.innerText = data.text;
+  } else {
+    data.chart.forEach((percent, index) => {
+      buttons[index].innerText = buttons[index].innerText + ` - ${percent}%`;
+    });
+  }
+};
+
+questionToTheCrowd = () => {
+  fetch("/help/crowd", {
+    method: "GET",
+  })
+    .then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+    })
+    .then((data) => {
+      handleQuestionToTheCrowd(data);
+    });
+};
+
 buttons.forEach((button) => {
   button.addEventListener("click", (e) => {
     const answerIndex = e.target.dataset.answer;
@@ -119,5 +144,9 @@ document
   .addEventListener("click", callToAFriend);
 
 document.querySelector("#halfOnHalf").addEventListener("click", halfOnHalf);
+
+document
+  .querySelector("#questionToTheCrowd")
+  .addEventListener("click", questionToTheCrowd);
 
 showNextQuestion();
