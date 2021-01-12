@@ -1,0 +1,21 @@
+Komendy: 
+DODAWANIE:
+- db - aktualna baza danych
+- db.cars - kolekcja cars z bazy danych db
+- db.cars.insertOne({id: "1", text: "something"}); - dodanie dokument do kolekcji
+- db.cars.insertMany([{ brand: "Polonez", model: "Caro" }, { brand: "Fiat", model: "125p" }]); - dodanie wielu dokumentów do kolekcji
+POBIERANIE:
+- db.cars.find(); - pobiera dokumenty z kolekcji cars
+- db.clients.find({
+  active: true
+}) - pobiera przefiltrowane elementy z kolekcji
+- db.clients.find({ _id: ObjectId("5ffdeeea8a2c239c15adbacb") }); - pobranie dokumentu po ID
+- db.clients.find({ age: { $gt:30 } }); - bardziej zaawansowane wyszukiwanie (opcje)
+- db.clients.find({ age: { $gt:30, $lt: 50 } }); - bardziej zaawansowane wyszukiwanie większy niż 30 i mniejszy niż 50
+OPCJE:
+- $gt: value - greater then;
+- $lt: value - less then;
+- $gte: value - greater then or equal 
+- $lte: value - less then or erqual
+- $in: [23, 27, 44] - znajdujący się w tablicy
+- $nin: [23, 27, 44] - nie znajdujący się w tablicy
