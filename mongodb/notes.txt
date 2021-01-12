@@ -11,7 +11,9 @@ POBIERANIE:
 }) - pobiera przefiltrowane elementy z kolekcji
 - db.clients.find({ _id: ObjectId("5ffdeeea8a2c239c15adbacb") }); - pobranie dokumentu po ID
 - db.clients.find({ age: { $gt:30 } }); - bardziej zaawansowane wyszukiwanie (opcje)
-- db.clients.find({ age: { $gt:30, $lt: 50 } }); - bardziej zaawansowane wyszukiwanie większy niż 30 i mniejszy niż 50
+- db.clients.find({ age: { $gt:30, $lt: 50 } }); - większy niż 30 i mniejszy niż 50
+- db.clients.find({ $or: [ { age: { $lt: 30 } }, { active: true } ] }); - mniejszy niż 30 LUB active: true
+- db.clients.find({ age: { $not: { $gt: 30 } } }); - NOT - nie większy niż 30
 OPCJE:
 - $gt: value - greater then;
 - $lt: value - less then;
