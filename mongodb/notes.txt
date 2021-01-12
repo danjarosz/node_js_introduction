@@ -1,10 +1,11 @@
 Komendy: 
-DODAWANIE:
+DODAWANIE (Create):
 - db - aktualna baza danych
 - db.cars - kolekcja cars z bazy danych db
 - db.cars.insertOne({id: "1", text: "something"}); - dodanie dokument do kolekcji
 - db.cars.insertMany([{ brand: "Polonez", model: "Caro" }, { brand: "Fiat", model: "125p" }]); - dodanie wielu dokumentów do kolekcji
-POBIERANIE:
+
+POBIERANIE (Read):
 - db.cars.find(); - pobiera dokumenty z kolekcji cars
 - db.clients.find({
   active: true
@@ -14,10 +15,26 @@ POBIERANIE:
 - db.clients.find({ age: { $gt:30, $lt: 50 } }); - większy niż 30 i mniejszy niż 50
 - db.clients.find({ $or: [ { age: { $lt: 30 } }, { active: true } ] }); - mniejszy niż 30 LUB active: true
 - db.clients.find({ age: { $not: { $gt: 30 } } }); - NOT - nie większy niż 30
-OPCJE:
-- $gt: value - greater then;
-- $lt: value - less then;
-- $gte: value - greater then or equal 
-- $lte: value - less then or erqual
-- $in: [23, 27, 44] - znajdujący się w tablicy
-- $nin: [23, 27, 44] - nie znajdujący się w tablicy
+  OPCJE:
+  - $gt: value - greater then;
+  - $lt: value - less then;
+  - $gte: value - greater then or equal 
+  - $lte: value - less then or erqual
+  - $in: [23, 27, 44] - znajdujący się w tablicy
+  - $nin: [23, 27, 44] - nie znajdujący się w tablicy
+
+EDYCJA (Update)
+db.clients.update({}, {$set: { active: true }}); - ustawia pole active na true w pierwszym znalezionym dokumencie
+db.clients.update({}, {$set: { active: true }}, { multi: true }); - ustawia pole active na true we wszystkich znalezionych dokumentach
+db.clients.update({_id: ObjectId("5ffdeeea8a2c239c15adbacc")}, {$set: { active: false }}); - ustawia active na false w dokumencie o id ObjectId("5ffdeeea8a2c239c15adbacc")
+Ogólna zasada to: db.clients.update(obiekt_wyszukania, obiekt_co_ma_byc_ustawione, obiekt_opcji)
+Aby nie dodawać w opcjach multi: true można użyć funkcji
+db.clients.updateOne() - edytuje jeden
+db.clients.updateMany() - edytuje wiele
+
+USUWANIE (Delete):
+db.clients.delete()
+db.clients.deleteOne()
+db.clients.deleteMany()
+kryteria is struktura ja w update, np.
+db.clients.deleteOne( {_id: ObjectId("5ffdeeea8a2c239c15adbacc")} )
