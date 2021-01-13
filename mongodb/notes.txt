@@ -1,3 +1,8 @@
+Uruchomienie shell'a na Linux, po kolei (https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/):
+sudo systemctl start mongod
+sudo systemctl status mongod
+mongo
+
 Komendy: 
 DODAWANIE (Create):
 - db - aktualna baza danych
