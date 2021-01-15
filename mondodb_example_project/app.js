@@ -86,6 +86,32 @@ function markTaskAsDone(todosCollection, id) {
   });
 }
 
+function deleteTask(todosCollection, id) {
+  todosCollection.find({ _id: mongo.ObjectId(id) }).toArray((err, todos) => {
+    if (err) {
+      console.log("Błąd podczas pobierania!", err);
+      client.close();
+    } else if (todos.length !== 1) {
+      console.log("Nie znaleziono zadania!");
+      client.close();
+    } else {
+      todosCollection.deleteOne(
+        {
+          _id: mongo.ObjectId(id),
+        },
+        (err) => {
+          if (err) {
+            console.log(`Błąd podczas usuwania`, err);
+          } else {
+            console.log(`Pomyślnie usunięto zadanie`);
+          }
+          client.close();
+        }
+      );
+    }
+  });
+}
+
 function doTheToDo(todosCollection) {
   const [command, ...args] = process.argv.splice(2);
 
@@ -98,6 +124,9 @@ function doTheToDo(todosCollection) {
       break;
     case "done":
       markTaskAsDone(todosCollection, args[0]);
+      break;
+    case "delete":
+      deleteTask(todosCollection, args[0]);
       break;
     default:
       console.log("Nie rozpoznano polecenia");
