@@ -112,6 +112,32 @@ function deleteTask(todosCollection, id) {
   });
 }
 
+function cleanupDoneTasks(todosCollection) {
+  todosCollection.find({ done: true }).toArray((err, todos) => {
+    if (err) {
+      console.log("Błąd podczas pobierania!", err);
+      client.close();
+    } else if (!todos.length) {
+      console.log("Brak wykonanych zadań!");
+      client.close();
+    } else {
+      todosCollection.deleteMany(
+        {
+          done: true,
+        },
+        (err) => {
+          if (err) {
+            console.log(`Błąd podczas usuwania`, err);
+          } else {
+            console.log(`Pomyślnie usunięto zakończone zadania`);
+          }
+          client.close();
+        }
+      );
+    }
+  });
+}
+
 function doTheToDo(todosCollection) {
   const [command, ...args] = process.argv.splice(2);
 
@@ -127,6 +153,9 @@ function doTheToDo(todosCollection) {
       break;
     case "delete":
       deleteTask(todosCollection, args[0]);
+      break;
+    case "cleanup":
+      cleanupDoneTasks(todosCollection);
       break;
     default:
       console.log("Nie rozpoznano polecenia");
