@@ -25,30 +25,64 @@ function showAllTodos(todosCollection) {
       const todosDone = todos.filter((todo) => todo.done);
 
       console.log(
-        `# Lista zadań do zrobienia (niezakończone): (${todosDone.length})`
+        `# Lista zadań do zrobienia (niezakończone): (${todosToDo.length})`
       );
 
-      if (todosDone.length) {
-        for (const todo of todosDone) {
-          console.log(`- ${todo.title}`);
+      if (todosToDo.length) {
+        for (const todo of todosToDo) {
+          console.log(`- [${todo._id}] ${todo.title}`);
         }
       } else {
         console.log("Brak zadań.");
       }
 
       console.log(
-        `# Lista zadań zrobionych (zakończone): (${todosToDo.length})`
+        `# Lista zadań zrobionych (zakończone): (${todosDone.length})`
       );
 
-      if (todosToDo.length) {
-        for (const todo of todosToDo) {
-          console.log(`- ${todo.title}`);
+      if (todosDone.length) {
+        for (const todo of todosDone) {
+          console.log(`- [${todo._id}] ${todo.title}`);
         }
       } else {
         console.log("Brak zadań.");
       }
     }
     client.close();
+  });
+}
+
+function markTaskAsDone(todosCollection, id) {
+  todosCollection.find({ _id: mongo.ObjectId(id) }).toArray((err, todos) => {
+    if (err) {
+      console.log("Błąd podczas pobierania!", err);
+      client.close();
+    } else if (todos.length !== 1) {
+      console.log("Nie znaleziono zadania!");
+      client.close();
+    } else if (todos[0].done) {
+      console.log("To zadanie jest już zakończone");
+      client.close();
+    } else {
+      todosCollection.updateOne(
+        {
+          _id: mongo.ObjectId(id),
+        },
+        {
+          $set: {
+            done: true,
+          },
+        },
+        (err) => {
+          if (err) {
+            console.log(`Błąd podczas edycji`, err);
+          } else {
+            console.log(`Pomyślnie oznaczono zadanie jako wykonane`);
+          }
+          client.close();
+        }
+      );
+    }
   });
 }
 
@@ -61,6 +95,9 @@ function doTheToDo(todosCollection) {
       break;
     case "list":
       showAllTodos(todosCollection);
+      break;
+    case "done":
+      markTaskAsDone(todosCollection, args[0]);
       break;
     default:
       console.log("Nie rozpoznano polecenia");
